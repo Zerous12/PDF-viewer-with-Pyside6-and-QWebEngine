@@ -35,7 +35,7 @@ Instala las dependencias con:
 
 ```bash
 pip install PySide6==6.7.0
-pywin32==306
+pip install pywin32==306
 ```
 ## ▶️ ¿Cómo se usa?
 Clona el repositorio:
