@@ -20,6 +20,20 @@
  * JavaScript code in this page
  */
 
+/**
+ * Modificaciones realizadas por Zerous12 (2025):
+ *
+ * - Se modificó la función `webViewerLoad()` para ocultar ciertos botones de la interfaz:
+ *   ['openFile', 'viewBookmark', 'editorStamp', 'editorFreeText', 'editorInk',
+ *    'secondaryToolbarToggle', 'sidebarToggle', 'viewFind'].
+ *
+ * - Se habilitó la carga de archivos locales mediante la adaptación de `validateFileURL`.
+ *
+ * - Se añadió la exportación explícita: `exports.PDFViewerApplication = PDFViewerApplication;`
+ *   para permitir el acceso externo desde otros scripts o entornos integrados (por ejemplo,
+ *   en apps con PySide6 o CEF).
+ */
+
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ([
@@ -12470,19 +12484,7 @@ __webpack_require__(44);
 var _l10n_utils = __webpack_require__(29);
 const PARTIAL_LANG_CODES = {
   en: "en-US",
-  es: "es-ES",
-  fy: "fy-NL",
-  ga: "ga-IE",
-  gu: "gu-IN",
-  hi: "hi-IN",
-  hy: "hy-AM",
-  nb: "nb-NO",
-  ne: "ne-NP",
-  nn: "nn-NO",
-  pa: "pa-IN",
-  pt: "pt-PT",
-  sv: "sv-SE",
-  zh: "zh-CN"
+  es: "es-ES"
 };
 function fixupLangCode(langCode) {
   return PARTIAL_LANG_CODES[langCode?.toLowerCase()] || langCode;

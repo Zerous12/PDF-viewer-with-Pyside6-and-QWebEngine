@@ -1,4 +1,4 @@
-from PySide6.QtCore import QTimer, Qt, QUrl, QStandardPaths, QTemporaryFile
+from PySide6.QtCore import QTimer, QUrl, QStandardPaths, QTemporaryFile
 from PySide6.QtWidgets import QMessageBox,  QDialog, QFileDialog
 from PySide6.QtGui import QIcon
 
@@ -219,4 +219,3 @@ class PdfViewDialog(QDialog):
         self.pdf_path = None
         self.ot_info = None
         self.output_pdf_directory = None
-
