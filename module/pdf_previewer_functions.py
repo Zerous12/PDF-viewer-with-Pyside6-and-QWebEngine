@@ -18,7 +18,8 @@ class PdfViewDialog(QDialog):
         self.ui = Ui_Dialog_Preview_Pdf()
         self.ui.setupUi(self)
         self.setWindowTitle("Preview PDF")
-        self.setFixedSize(self.width(), self.height()) 
+        self.setFixedSize(self.width(), self.height())
+        self.configure_button_aux_viewer()
         self.webview = self.ui.webEngineView        
         self.webview.setZoomFactor(1)
         self.web_settings = self.webview.settings()
@@ -43,9 +44,15 @@ class PdfViewDialog(QDialog):
         self.ui.print_pdf.setIcon(QIcon("utils/icons/icon_printer.png"))
         self.ui.print_pdf.clicked.connect(self._handle_print_request)
         self.ui.print_pdf.setToolTip("Imprimir PDF")
+        self.ui.print_pdf.setVisible(False)
         self.ui.save_us_pdf.setIcon(QIcon("utils/icons/icon_download_pdf.png"))
         self.ui.save_us_pdf.clicked.connect(self.simulate_pdfjs_download)
         self.ui.save_us_pdf.setToolTip("Guardar PDF")
+        self.ui.save_us_pdf.setVisible(False)
+
+    def configure_button_visibility(self):
+        self.ui.print_pdf.setVisible(True)
+        self.ui.save_us_pdf.setVisible(True)
 
     def simulate_pdfjs_download(self):
         js_code = """
@@ -64,9 +71,13 @@ class PdfViewDialog(QDialog):
     def _on_js_result(self, result):
         print(f"Resultado JS: {result}")
 
+    def _force_repaint(self):       
+        self.webview.resize(self.webview.width()+1, self.webview.height())  # trigger layout
+        self.webview.resize(self.webview.width()-1, self.webview.height())  # restore
+
     def delay_dialog_charge_data(self):
         self.loading_indicator.start()
-        QTimer.singleShot(1000, self.load_pdf_from_path)       
+        QTimer.singleShot(500, self.load_pdf_from_path)       
 
     def load_pdf_from_path(self):
         try:
@@ -99,9 +110,10 @@ class PdfViewDialog(QDialog):
         def enable_downloads():
             self.webview.loadFinished.disconnect(enable_downloads)        
         self.webview.loadFinished.connect(enable_downloads)
-        self.webview.loadFinished.connect(self.configure_button_aux_viewer)
-        self.loading_indicator.stop()
+        self.webview.loadFinished.connect(self.configure_button_visibility)
+        self.webview.loadFinished.connect(self.loading_indicator.stop())        
         self.load_pdf()
+        QTimer.singleShot(100, self._force_repaint)
 
     def load_pdf(self):
         self.webview.load(QUrl.fromUserInput(f'file:///{self.pdf_js_path}?file=file:///{self.pdf_path}#page={self.start_page}'))
@@ -147,7 +159,6 @@ class PdfViewDialog(QDialog):
         finally:
             if 'hPrinter' in locals():
                 win32print.ClosePrinter(hPrinter)
-
 
     def _handle_download(self, download_item):
         print("Presiono el botón de descargar")
