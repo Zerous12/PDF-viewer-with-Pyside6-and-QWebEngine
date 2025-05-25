@@ -23,7 +23,10 @@ class PdfViewDialog(QDialog):
         self.webview = self.ui.webEngineView        
         self.webview.setZoomFactor(1)
         self.web_settings = self.webview.settings()
-        self.web_settings.setAttribute(QWebEngineSettings.JavascriptEnabled, True)
+        self.web_settings.setAttribute(QWebEngineSettings.WebAttribute.JavascriptEnabled, True)
+        self.page_param = self.webview.page()
+        self.page_param.settings().setAttribute(QWebEngineSettings.WebAttribute.ShowScrollBars, False)
+        self.page_param.settings().setAttribute(QWebEngineSettings.WebAttribute.ForceDarkMode, False)
         self.loading_indicator = WaitingCircle(parent=self)
         self.loading_indicator.hide()
         self.start_page = 1
@@ -35,8 +38,8 @@ class PdfViewDialog(QDialog):
         
         self.output_pdf_directory = os.path.join(project_root, "docs").replace('\\', '/')  
               
-        self.webview.page().profile().downloadRequested.connect(self._handle_download)
-        self.webview.page().printRequested.connect(self._handle_print_request)        
+        self.page_param.profile().downloadRequested.connect(self._handle_download)
+        self.page_param.printRequested.connect(self._handle_print_request)        
         self.ui.btn_out_viewer.clicked.connect(self.out_button_clicked)
         self.delay_dialog_charge_data()        
 
@@ -66,7 +69,7 @@ class PdfViewDialog(QDialog):
                 }
             })();
         """
-        self.webview.page().runJavaScript(js_code, self._on_js_result)
+        self.page_param.runJavaScript(js_code, self._on_js_result)
 
     def _on_js_result(self, result):
         print(f"Resultado JS: {result}")
@@ -199,8 +202,8 @@ class PdfViewDialog(QDialog):
         # Forzar garbage collection del diálogo
         gc.collect()
         # Limpiar cachés del WebEngine
-        self.webview.page().profile().clearHttpCache()
-        self.webview.page().profile().clearAllVisitedLinks()          
+        self.page_param.profile().clearHttpCache()
+        self.page_param.profile().clearAllVisitedLinks()          
     
     def out_button_clicked(self):
         self.clear_input_fields()
@@ -219,9 +222,9 @@ class PdfViewDialog(QDialog):
                 print(f"Error al cerrar archivo temporal: {str(e)}")
 
     def clear_webview_data(self):
-        self.webview.page().profile().downloadRequested.disconnect()
-        self.webview.page().printRequested.disconnect()
-        self.webview.page().profile().clearAllVisitedLinks()
+        self.page_param.profile().downloadRequested.disconnect()
+        self.page_param.printRequested.disconnect()
+        self.page_param.profile().clearAllVisitedLinks()
         self.webview.close()
 
     def clear_input_fields(self):  
