@@ -3,10 +3,10 @@ from PySide6.QtGui import QColor, QPainter
 from PySide6.QtWidgets import QWidget
 import math
 
-
 class WaitingCircle(QWidget):
     def __init__(self, parent=None, radius=21, segment_radius=7, colors=None):
         super().__init__(parent)
+        self.setParent(parent)
         self.setWindowFlags(Qt.FramelessWindowHint | Qt.Widget)
         self.setAttribute(Qt.WA_TranslucentBackground)
         self.setAttribute(Qt.WA_NoSystemBackground, True)
@@ -36,9 +36,7 @@ class WaitingCircle(QWidget):
 
         # Ajustar tamaño del widget
         widget_diameter = 2 * (self.radius + self.segment_radius + 10)
-        self.setFixedSize(widget_diameter, widget_diameter)
-        self.center_widget()
-
+        self.setFixedSize(widget_diameter, widget_diameter)       
         # Animación con QVariantAnimation
         self.animation = QVariantAnimation(self)
         self.animation.setStartValue(0)
@@ -52,6 +50,7 @@ class WaitingCircle(QWidget):
         self.animation.start()
         self.show()
 
+    
     def stop(self):
         """Detiene la animación y cierra el widget."""        
         self.animation.stop()
@@ -99,7 +98,16 @@ class WaitingCircle(QWidget):
 
         painter.end()
 
-    def center_widget(self):
+    def superposition(self, enabled: bool):
+        if enabled:
+            self._recenter()
+            self.raise_()
+
+    def showEvent(self, event):
+        super().showEvent(event)
+        self._recenter()
+
+    def _recenter(self):
         """Centra el widget dentro de su ventana padre si existe."""
         if self.parent():
             parent_rect = self.parent().rect()
