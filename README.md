@@ -20,18 +20,21 @@ Este repositorio provee una **solución lista para usar** para visualizar archiv
 ---
 
 ## 🧩 Estructura del proyecto
+
+A continuación se muestra la estructura de carpetas y archivos del proyecto, con una breve descripción de cada componente.
+
 ```bash
-├── app.py                        # Punto de entrada de la app
+├── app.py                            # Punto de entrada de la app
 ├── module/
-│   └── pdf_previewer_functions.py   # Lógica principal del visor
+│   └── pdf_previewer_functions.py    # Lógica principal del visor
 ├── utils/
-│   ├── pdfjs/                   # PDF.js (versión personalizada)
-│   │   └── web/viewer.html      # Visor PDF.js
-│   ├── icons/                   # Iconos para los botones
+│   ├── pdfjs/                        # PDF.js (versión personalizada)
+│   │   └── web/viewer.html           # Visor PDF.js
+│   ├── icons/                        # Iconos para los botones
 │   └── widgets/
-│       └── rotating_circle.py   # Indicador de carga personalizado
+│       └── rotating_circle.py        # Indicador de carga personalizado
 ├── docs/
-│   └── PDF Test File HTML5.pdf  # PDF de prueba
+    └── PDF Test File HTML5.pdf       # PDF de prueba
 ```
 ---
 
