@@ -67,9 +67,33 @@ python app.py
 
 ## 🛠️ Personalización
 Puedes personalizar:
-Los botones visibles del visor PDF.js (modificados en viewer.js).
+Para ocultar o mostrar ciertos botones del visor PDF.js, modifica este bloque en el archivo viewer.js.
+```bash
+_app.PDFViewerApplication.run(config);
 
-![Captura de pantalla 2025-05-03 164239](https://github.com/user-attachments/assets/958238fd-afd4-4d6e-b31c-827e74d6409d)
+// ✅ Aquí colocas tu lógica para ocultar botones
+const ButtonsToHide = [
+  "openFile",             // Abrir archivo
+  "viewBookmark",         // Ver marcador
+  "editorStamp",          // Editor de sellos
+  "editorFreeText",       // Editor de texto libre
+  "editorInk",            // Editor de tinta
+  "secondaryToolbarToggle", // Barra de herramientas secundaria
+  "sidebarToggle",        // Barra lateral
+  "viewFind",             // Buscar
+  // Añade más IDs si los necesitas
+];
+
+function hideButtonsById(ids) {
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.add("hide-button");
+  });
+}
+
+hideButtonsById(ButtonsToHide);
+
+```
 
 ## 🧠 ¿Cómo funciona internamente?
 
