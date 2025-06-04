@@ -6,7 +6,9 @@ Este repositorio provee una **solución lista para usar** para visualizar archiv
 
 ---
 ![Captura de pantalla 2025-05-18 190620](https://github.com/user-attachments/assets/14938b6d-7605-49ec-8c18-3e7d15751d59)
+
 ---
+
 ## 🚀 Características
 
 - Visualizador de PDF con **PDF.js** (renderizado HTML5).
@@ -16,8 +18,6 @@ Este repositorio provee una **solución lista para usar** para visualizar archiv
 - Control completo del flujo de impresión con `win32print`.
 - Descargar archivos desde el visor con `QFileDialog`.
 - Limpieza de caché y manejo robusto de errores.
-
----
 
 ## 🧩 Estructura del proyecto
 
@@ -36,7 +36,6 @@ A continuación se muestra la estructura de carpetas y archivos del proyecto, co
 ├── docs/
     └── PDF Test File HTML5.pdf       # PDF de prueba
 ```
----
 
 ## 🛠️ Requisitos
 
@@ -51,6 +50,7 @@ Instala las dependencias con:
 pip install PySide6==6.7.0
 pip install pywin32==306
 ```
+
 ## ▶️ ¿Cómo se usa?
 Clona el repositorio:
 
@@ -61,13 +61,15 @@ cd PDF-viewer-with-Pyside6-and-QWebEngine
 Coloca tus archivos PDF de prueba en la carpeta docs/ (puedes usar el que ya viene por defecto).
 
 ## Ejecuta la aplicación:
+
 ```bash
 python app.py
 ```
 
 ## 🛠️ Personalización
-Puedes personalizar:
-Para ocultar o mostrar ciertos botones del visor PDF.js, modifica este bloque en el archivo viewer.js.
+
+Puedes personalizar el visor PDF.js: para ocultar o mostrar ciertos botones, modifica este bloque en el archivo viewer.js.
+
 ```bash
 _app.PDFViewerApplication.run(config);
 
@@ -113,8 +115,11 @@ Modificaciones realizadas por **Zerous12 (2025)** para su integración con PySid
 ¿Encontraste un error o quieres mejorar esta herramienta? ¡Pull requests y sugerencias son bienvenidas!  
 Este proyecto existe para ayudar a otros devs **Qt/PySide** como tú.
 
-## 🙋‍♂️ Autor & Contacto
+Si te sirvió este proyecto, considera dejar una ⭐ en el repositorio o compartirlo con otros desarrolladores.
+
 ---
+
+## 🙋‍♂️ Autor & Contacto
 
 **Zerous12**  
 Estudiante de Ingeniería Informática · Automatización · PySide6 · Electrónica aplicada  
@@ -122,5 +127,3 @@ Estudiante de Ingeniería Informática · Automatización · PySide6 · Electró
 🔗 [github.com/Zerous12](https://github.com/Zerous12)
 
 ---
-
-Si te sirvió este proyecto, considera dejar una ⭐ en el repositorio o compartirlo con otros desarrolladores.
